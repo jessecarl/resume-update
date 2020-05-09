@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+
+\pagestyle{empty}
+\geometry{letterpaper,tmargin=0.6in,bmargin=0.5in,lmargin=0.75in,rmargin=0.75in,headheight=0in,headsep=0in,footskip=0.3in}
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{0in}
+\setlength{\itemsep}{0in}
+\setlength{\topsep}{0in}
+\setlength{\tabcolsep}{0in}
+
+<<with .Contact ->>
+% Name and contact information
+\newcommand{\name}{<<.Name>>}
+% current information
+<<with .Address ->>
+\newcommand{\currentAddress}{<<.StreetAddress>>}
+\newcommand{\currentCityStateZip}{<<.Locality>>, <<.Region>> <<.PostalCode>>}
+<<- end>>
+<<with .PrimaryPhone ->>
+\newcommand{\currentPhone}{<<.Number.FormatTraditional ->><<with .Extension>> ext. <<. ->><<end>>}
+<<- end>>
+\newcommand{\currentEmail}{<<.Email>>}
+<<- end>>
+
+\renewcommand{\labelitemi}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New commands & environments
+
+% Name at top of page
+\newcommand{\bigname}[1]{
+  {\selectfont\Large\scshape#1}
+}
+
+%%
+% Single address:
+%   Arg 1: Address
+%   Arg 2: City, State Zip
+%   Arg 3: Phone
+%   Arg 4: Email
+\newcommand{\singleAddr}[4]{
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} l r r}
+        #1, #2 & #3 & #4
+    \end{tabular*}
+}
+
+% A ressection is a main section (<H1>Section</H1>)
+\newenvironment{ressection}[1]{
+  \vspace{0pt}
+  {\selectfont\large\scshape#1}
+  \begin{itemize}
+  \vspace{2pt}
+}{
+  \end{itemize}
+}
+
+% A resitem is a simple list element in a ressection (first level)
+\newcommand{\resitem}[1]{
+  \vspace{-6pt}
+  \item \begin{flushleft} #1 \end{flushleft}
+}
+
+% A ressubitem is a simple list element in anything but a ressection (second level)
+\newcommand{\ressubitem}[1]{
+  \vspace{-2pt}
+  \item \begin{flushleft} #1 \end{flushleft}
+}
+
+% A resbigitem is a complex list element for stuff like jobs and education:
+%   Arg 1: Name of company or university
+%   Arg 2: Location
+%   Arg 3: Title and/or date range
+\newcommand{\resbigitem}[3]{
+  \vspace{-8pt}
+  \item
+  \textbf{#1}---#2 \\
+  \textit{#3}
+}
+
+% This is a list that comes with a resbigitem
+\newenvironment{ressubsec}[3]{
+  \resbigitem{#1}{#2}{#3}
+  \vspace{-2pt}
+  \begin{itemize}
+}{
+  \end{itemize}
+}
+
+% This is a simple sublist
+\newenvironment{reslist}[1]{
+  \resitem{\textbf{#1}}
+  \vspace{-7pt}
+  \begin{itemize}
+}{
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now for the actual document
+
+\begin{document}
+\bigname{\name}
+
+\vspace{-8pt} \rule{\textwidth}{1pt}
+
+\vspace{-4 pt} {\footnotesize\itshape \singleAddr{\currentAddress}{\currentCityStateZip}{\currentPhone}{\currentEmail}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Summary instead of Objectives
+<<- with .Summary>>
+\vspace{-8pt}
+<<.>>
+\vspace{8pt}
+<<- end>>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{Work \& Volunteer Experience}
+<<- range .Experiences>><<if not .CVOnly>>
+  \begin{ressubsec}{<<.Organization>>}{<<.Location>>}{<<.Role>>: <<.StartDate.Format "January 2006">> -- <<if .EndDate.IsZero>>Present<<else>><<.EndDate.Format "January 2006">><<end>>}
+    <<- range .Tasks>>
+    \ressubitem{<<.>>}
+    <<- end>>
+  \end{ressubsec}
+<<- end>><<end>>
+\end{ressection}
+
+\begin{ressection}{Skills \& Tools}
+  \item{
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} l l l l l}
+      <<- $length := len .Skills>>
+      <<range $i, $x := .Skills>><<if and (eq (mod $i 5) 0) (gt $i 0)>> \\
+      <<else if gt $i 0>> & <<end>><<quickfilter $x.Name "LaTeX">><<if eq (add $i 1) $length >> \\<<end>><<end>>
+    \end{tabular*}
+  }
+\end{ressection}
+
+\begin{ressection}{Education}
+  <<- range .Education>>
+  \begin{ressubsec}{<<.Institution>>}{<<.Location>>}{<<.Date.Format "January 2006">>}
+    <<- range .Degree>>
+    \ressubitem{<<.Type>> in <<range $i, $x := .FieldOfStudy>><<if gt $i 0>>, <<end>><<$x>><<- end>>}
+    <<- with .Minor>>
+    \ressubitem{Minors in <<range $i, $x := . ->><<if gt $i 0>>, <<end>><<$x>><<end>>}
+    <<- end>>
+    <<- end>>
+  \end{ressubsec}
+  <<- end>>
+\end{ressection}
+
+<<with .Awards ->>
+\begin{ressection}{Activities \& Awards}
+  <<- range .>>
+  \resitem{\textbf{<<.Award>>} -- \textit{<<.Organization>>} (<<.Date.Format "January 2006">>) -- <<.Description>>}
+  <<- end>>
+\end{ressection}
+<<- end>>
+
+\end{document}
+

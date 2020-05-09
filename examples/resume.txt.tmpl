@@ -1,0 +1,52 @@
+{{with .Contact}}
+{{- .Name}}
+{{with .Address}}
+{{- .StreetAddress}}
+{{.Locality}}, {{.Region}} {{.PostalCode -}}
+{{end}}
+{{with .PrimaryPhone}}
+{{- .Number.FormatTraditional -}}{{with .Extension}} ext. {{. -}}{{end}}
+{{end}}
+{{- .Email -}}
+{{end}}
+
+{{with .Summary -}}{{.}}{{- end}}
+
+{{with .Experiences -}}
+Work & Volunteer Experience
+{{- range .}}{{if not .CVOnly}}
+  {{.Organization}}---{{.Location}}
+    {{.Role}}: {{.StartDate.Format "January 2006"}}--{{if .EndDate.IsZero}}Present{{else}}{{.EndDate.Format "January 2006"}}{{end}}
+      {{- range .Tasks}}
+      * {{.}}
+      {{- end}}
+{{- end}}{{end -}}
+{{- end}}
+
+{{with .Skills -}}
+Skills
+  {{- range .}}
+  {{title .Type.String}} with {{.Name}}
+  {{- end}}
+{{- end}}
+
+{{with .Education -}}
+Education
+  {{- range .}}
+  {{.Institution}}---{{.Location}} ({{.Date.Format "January 2006"}})
+    {{- range .Degree}}
+    {{.Type}} in {{range $idx, $x := .FieldOfStudy}}{{if gt $idx 0}}, {{end}}{{$x}}{{- end}}
+      {{- with .Minor}}
+      Minors in {{range $i, $x := . -}}{{if gt $i 0}}, {{end}}{{$x}}{{end}}
+      {{- end}}
+    {{- end}}
+  {{- end}}
+{{- end}}
+
+{{with .Awards -}}
+Activities & Awards
+  {{- range .}}
+  {{.Award}}---{{.Organization}} ({{.Date.Format "January 2006"}})
+    {{.Description}}
+  {{- end}}
+{{- end}}
