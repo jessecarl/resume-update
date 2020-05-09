@@ -1,0 +1,128 @@
+{
+  "contact":{
+    "name":"Notta Realperson",
+    "address":{
+      "streetAddress":"34 N Calle Sin Nombre",
+      "locality":"New York",
+      "region":"NY",
+      "postalCode":"10007"
+    },
+    "phone":[{
+      "type":"mobile",
+      "number":"9175550123",
+      "primary":true
+    },{
+      "type":"other",
+      "number":"9175550124",
+      "extension":"42"
+    }],
+    "email":"notta@example.com"
+  },
+  "summary":"Impacting people with synergy and buzzwords.",
+  "experiences":[{
+    "type":"work",
+    "cvOnly":false,
+    "organization":"Full Cup Inc.",
+    "location":"New York, NY",
+    "role":"Senior Cup Filler",
+    "startDate":"2019-09-20T00:00:00Z",
+    "tasks":[
+      "Filling cups.",
+      "Measuring cups for filling.",
+      "Mentoring cup fillers."
+    ]
+  },{
+    "type":"work",
+    "cvOnly":true,
+    "organization":"Empty Cup LLC",
+    "location":"New York, NY",
+    "role":"Cup Drainer",
+    "startDate":"2018-07-11T00:00:00Z",
+    "endDate":"2019-09-01T16:00:00Z",
+    "tasks":[
+      "Emptying cups.",
+      "Measuring drained cup contents.",
+      "Documenting cup drainage requirements."
+    ]
+  },{
+    "type":"volunteer",
+    "cvOnly":false,
+    "organization":"Cups for Kids",
+    "location":"New York, NY",
+    "role":"Volunteer Teacher",
+    "startDate":"2018-06-01T00:00:00Z",
+    "endDate":"2018-08-01T00:00:00Z",
+    "tasks":[
+      "Worked with elementary students learning about cup filling and draining."
+    ]
+  }],
+  "skills":[
+    {
+      "type":"fluent",
+      "name":"Cup Protocol"
+    },
+    {
+      "type":"proficient",
+      "name":"Highball Glasses"
+    },
+    {
+      "type":"competent",
+      "name":"Champagne Flutes"
+    },
+    {
+      "type":"familiar",
+      "name": "Mugs"
+    },
+    {
+      "type":"proficient",
+      "name":"Word"
+    },
+    {
+      "type":"competent",
+      "name":"Excel"
+    },
+    {
+      "type":"familiar",
+      "name":"Powerpoint"
+    },
+    {
+      "type":"familiar",
+      "name":"Clicking"
+    }
+  ],
+  "education":[{
+    "institution":"New York University",
+    "location":"New York, NY",
+    "degree":[{
+      "type":"Master of Fine Arts",
+      "fieldOfStudy":["Ceramics","Design"]
+    }],
+    "date":"2018-05-30T00:00:00Z"
+  },{
+    "institution":"The University of Arizona",
+    "location":"Tucson, AZ",
+    "degree":[{
+      "type":"Bachelor of Arts",
+      "fieldOfStudy":["English Literature"],
+      "minor":[
+        "Communications",
+        "Psychology"
+      ]
+    },{
+      "type":"Bachelor of Fine Arts",
+      "fieldOfStudy":["Photography"]
+    }],
+    "date":"2015-05-20T00:00:00Z"
+  }],
+  "awards":[{
+    "organization":"Senior Photo Contest",
+    "award":"Best Composition",
+    "description":"Photo of a tree composed to capture the exact moment that the shadow divides the tree in two.",
+    "date":"2014-12-01T00:00:00Z"
+  },{
+    "organization":"Boy Scouts of America",
+    "award":"Eagle Scout",
+    "description":"Held various leadership positions. Planned and led project to distribute cups to underserved children.",
+    "date":"2010-05-01T00:00:00Z"
+  }]
+}
